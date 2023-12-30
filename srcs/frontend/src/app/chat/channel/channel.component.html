@@ -1,0 +1,90 @@
+<div class="w-full h-full relative text-white flex flex-col min-w-fit">
+	<p *ngIf="!isGame" class="text-center text-sm w-full h-fit border-b-[1px] p-1 min-w-fit">{{getChannelName()}}</p>
+	<div *ngIf="!isSetting" class="w-full flex flex-col flex-grow overflow-auto min-w-fit">
+		<div class="w-full flex flex-col flex-grow gap-2 scrollbar p-2 min-w-fit" #msgDiv
+			[scrollTop]="msgDiv.scrollHeight">
+			<app-message *ngFor="let message of channel.messages" [message]="message" [user]="user!"
+				[isPersonal]="isPersonal()"></app-message>
+		</div>
+		<footer class="w-full h-fit flex gap-2 items-center justify-center border-t p-2 min-w-fit">
+			<i *ngIf="!isPersonal() && allowSettings()" class="fa-solid fa-gear hover:text-blue-400 cursor-pointer"
+				(click)="isSetting = true"></i>
+			<form (ngSubmit)="onSubmit()" class="w-full flex gap-2 items-center justify-center min-w-fit">
+				<input #textInput type="text"
+					class="w-full rounded-md px-2 py-1 bg-cards bg-opacity-50 text-white focus:outline-none border-[1px]"
+					name="submission" [(ngModel)]="submission" autocomplete="off" autofocus>
+				<button class="text-white hover:text-blue-400" type="onSubmit()">
+					<i class='bx bxs-send text-xl'></i>
+				</button>
+			</form>
+		</footer>
+	</div>
+
+	<div *ngIf="allowSettings() && isSetting"
+		class="w-full flex flex-col flex-grow relative items-center justify-center overflow-auto min-w-fit">
+		<div *ngIf="!isGame" class="w-full h-fit flex flex-col items-center justify-center gap-1 p-1 pt-4 min-w-fit">
+			<div class="w-full h-fit relative flex flex-col items-center justify-center min-w-fit">
+				<img src="{{channel.avatar}}" class="object-cover w-20 h-20 rounded-md md:w-24 md:h-24 aspect-auto">
+				<div
+					class="w-20 h-20 rounded-md md:w-24 md:h-24 opacity-0 hover:opacity-100 flex bg-black absolute top-0 bg-opacity-50 items-center justify-center min-w-fit">
+					<input type="file" class="hidden" (change)="uploadPic($event)" #fileUpload
+						accept="image/png, image/jpg, image/jpeg">
+					<i class='bx bxs-camera-plus cursor-pointer text-xl z-10 text-white text-opacity-70 absolute'
+						(click)="fileUpload.click()"></i>
+				</div>
+			</div>
+			<div class="w-full h-fit flex flex-col items-center justify-center min-w-fit">
+				<h1 class="text-sm">{{getChannelName()}}</h1>
+				<h3 class="text-xs">{{channel.users.length}} participants</h3>
+			</div>
+			<div *ngIf="admin" class="w-full h-fit flex flex-col p-1 items-center justify-center">
+				<button
+					class="w-fit h-fit flex p-1 items-center justify-center rounded-md gap-4 cursor-default min-w-fit">
+					<p class="text-xs">private</p>
+					<mat-slide-toggle [(ngModel)]="isPrivate" (change)="togglePrivate()"></mat-slide-toggle>
+				</button>
+				<div
+					class="w-fir h-fit flex flex-col p-1 items-center justify-center rounded-md gap-2 cursor-default min-w-fit">
+					<div class="w-fit h-fit flex items-center justify-center rounded-md gap-4 cursor-default min-w-fit">
+						<p>password</p>
+						<mat-slide-toggle [(ngModel)]="hasPassword" (change)="togglePassword()"></mat-slide-toggle>
+					</div>
+					<form *ngIf="hasPassword" (ngSubmit)="submitPassword()"
+						class="flex gap-4 text-sm p-2 items-center justify-center min-w-fit">
+						<input class="rounded-[4px] text-black pl-2 w-fit max-w-[100px]" type="password" name="passwd"
+							placeholder="New password" [(ngModel)]="newPassw" />
+						<input type="submit"
+							class="bg-white bg-opacity-10 w-fit px-2 py-1 h-fit rounded-[4px] cursor-pointer hover:text-steelBlue">
+					</form>
+				</div>
+			</div>
+			<button
+				class="w-fit h-fit flex p-1 items-center justify-center rounded-md text-white bg-red-500 bg-opacity-70 hover:opacity-70 absolute top-1 right-1 font-extrabold min-w-fit"
+				(click)="leave()">
+				<p class="text-sm">Leave</p>
+			</button>
+			<button class=" text-white hover:text-blue-400 hover:opacity-70 absolute top-1 left-2 min-w-fit"
+				(click)="isSetting = false">
+				<i class="fa-solid fa-xmark text-base cursor-pointer"></i>
+			</button>
+		</div>
+		<div class="w-full p-2 flex flex-grow flex-col overflow-auto min-w-fit">
+			<div>
+				<p>members</p>
+				<div
+					class="w-full flex flex-col flex-grow bg-cards bg-opacity-50 rounded-lg overflow-auto p-1 min-w-fit gap-2">
+					<app-user-thumbnail *ngFor="let user of users" [user]="user" [extraActions]="userCardMethods">
+					</app-user-thumbnail>
+				</div>
+			</div>
+			<div *ngIf="admin && bans.length">
+				<p>banned</p>
+				<div
+					class="w-full flex flex-col flex-grow bg-cards bg-opacity-50 rounded-lg overflow-auto p-1 min-w-fit gap-2">
+					<app-user-thumbnail *ngFor="let user of bans" [user]="user" [extraActions]="banCardMethods">
+					</app-user-thumbnail>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

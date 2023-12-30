@@ -1,0 +1,37 @@
+<div #wrapper *ngIf="channel" class="w-full h-fit text-white rounded-sm p-1 bg-cards bg-opacity-20 pr-2 flex flex-col items-center justify-center" tabindex="1" (focus)="focusUnfocusChannel($event, true)" (blur)="focusUnfocusChannel($event, false)">
+	<div class="w-full h-fit flex gap-2 items-center min-w-fit cursor-default outline-none relative">
+		<div *ngIf="!joinRequest" class="w-full h-fit flex gap-2 items-center min-w-fit cursor-default"
+			(click)="channelSelection()">
+			<img src="{{channel.avatar}}" class="flex rounded-sm w-5 h-5 object-cover aspect-square">
+			<p class="text-xs md:text-sm">{{ getChannelName() }}</p>
+			<span class="flex flex-grow"></span>
+		</div>
+
+		<div *ngIf="!channel.registered && !admin" class="w-full h-fit flex justify-between items-center">
+			<div *ngIf="joinRequest"
+				class="w-fit h-fit p-1 bg-white bg-opacity-5 rounded-sm flex items-center justify-center z-20 cursor-pointer hover:opacity-50"
+				(click)="cancelJoin(); $event.stopPropagation()">
+				<p class="text-xs">cancel</p>
+			</div>
+			<span *ngIf="!joinRequest" class="flex flex-grow"></span>
+			<div class="w-fit h-fit p-1 bg-white bg-opacity-5 text-green-400 rounded-sm flex items-center justify-center z-20 cursor-pointer hover:opacity-50"
+				(click)="joinChannel(); $event.stopPropagation()">
+				<p class="text-xs">join</p>
+			</div>
+		</div>
+
+		<div *ngIf="admin" class="w-fit h-full text-blue-400 hover:opacity-50 cursor-pointer" (click)="deleteChannel(); $event.stopPropagation()">
+			<i class="fa fa-xmark"></i>
+		</div>
+
+		<div *ngIf="channel.registered && channel.notRead > 0"
+			class="w-5 h-5 bg-sky-400 bg-opacity-60 absolute right-1 rounded-sm flex items-center justify-center">
+			<p class="text-sm">{{ channel.notRead }}</p>
+		</div>
+	</div>
+	<form (ngSubmit)="submitPassword()">
+		<input *ngIf="joinRequest && channel.hasPassword" type="text"
+			class="w-full rounded-md px-2 py-0.5 bg-cards bg-opacity-50 text-white focus:outline-none border-[1px]"
+			name="submission" [(ngModel)]="passwordSubmitted" autocomplete="off">
+	</form>
+</div>

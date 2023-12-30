@@ -1,0 +1,14 @@
+<div class="w-full h-full flex text-white p-2">
+	<div class="w-1/2 h-full flex flex-col gap-2 p-2">
+		<p class="text-center">users</p>
+		<div class="w-full h-full bg-cards bg-opacity-20 rounded-md p-2">
+			<app-user-thumbnail *ngFor="let user of allUsers" [user]="user" [extraActions]="userCardMethods"></app-user-thumbnail>
+		</div>
+	</div>
+	<div class="w-1/2 h-full flex flex-col gap-2 p-2">
+		<p class="text-center">channels</p>
+		<div class="w-full h-full bg-cards bg-opacity-20 rounded-md p-2">
+			<app-channel-card *ngFor="let channel of (allChannels | async)" [channel]="channel" [admin]="true"></app-channel-card>
+		</div>
+	</div>
+</div>

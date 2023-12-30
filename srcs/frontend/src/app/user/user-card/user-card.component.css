@@ -1,0 +1,34 @@
+.user-card {
+	transform-style: preserve-3d;
+	transform: perspective(180rem) rotateX(20deg) rotateY(0deg);
+	margin: 0 auto;
+	position: relative;
+	user-select: none;
+}
+
+.user-card .front {
+	width: 100%;
+	height: 100%;
+	border-radius: 0.5rem;
+	background-color: rgba(0, 0, 0, 0.4);
+	border-width: 2px;
+	border-color: white;
+	transform-style: preserve-3d;
+	transform: translateZ(0.1px);
+	position: absolute;
+	padding: 16px;
+	box-sizing: border-box;
+}
+
+.user-card .back {
+	width: 100%;
+	height: 100%;
+	border-radius: 0.5rem;
+	background-color: rgba(0, 0, 0, 0.4);
+	border-width: 2px;
+	border-color: white;
+	transform-style: preserve-3d;
+	position: absolute;
+	padding: 16px;
+	box-sizing: border-box;
+}

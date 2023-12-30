@@ -1,0 +1,6 @@
+<div #wrapper class="w-full h-fit flex flex-col justify-center relative">
+	<div #messageWrapper class="p-2 rounded-lg text-white flex gap-1 flex-col break-all w-fit max-w-[70%] msg-card" [ngStyle]="{'background-color': myMessage ? 'rgba(96, 165, 250, 0.45)' : 'rgba(167, 139, 250, 0.45)'}">
+		<p *ngIf="showSender()" class="text-sm font-extrabold">{{ message.fromUsername }}:</p>
+		<p class="text-sm">{{ message.text }}</p>
+	</div>
+</div>

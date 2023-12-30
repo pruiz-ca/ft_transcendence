@@ -1,0 +1,27 @@
+<div *ngIf="request"
+	class="w-fit h-fit rounded-lg flex items-center justify-center text-sm break-words p-2 gap-2 relative cursor-default text-white">
+		
+		<img src="{{request.sender.avatar}}" class="object-cover w-10 h-10 rounded-lg">
+	<div class="w-fit flex flex-col items-start p-2">
+		<div class="w-fit h-fit min-w-fit flex gap-2 items-center justify-center">
+			<p class="text-xs md:text-sm">{{request.sender.username}}</p>
+				<div *ngIf="request.sender.user_status == 'online'"
+				class="w-2 h-2 bg-green-400 rounded-full">
+			</div>
+			<div *ngIf="request.sender.user_status == 'offline'"
+				class="w-2 h-2 bg-red-400 rounded-full"></div>
+			<div *ngIf="request.sender.user_status == 'playing'"
+				class="w-2 h-2 bg-orange-400 rounded-full">
+			</div>
+		</div>
+		<p class="text-xs">{{description}}</p>
+	</div>
+	<div class="w-fit flex gap-2 text-xl">
+		<button class="w-fit flex items-center justify-center text-green-400 hover:opacity-50" (click)="acceptRequest()">
+			<i class='bx bx-check'></i>
+		</button>
+		<button class="w-fit flex items-center justify-center text-red-400 hover:opacity-50" (click)="declineRequest()">
+			<i class='bx bx-x'></i>
+		</button>
+	</div>
+</div>

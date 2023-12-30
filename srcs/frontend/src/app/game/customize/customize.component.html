@@ -1,0 +1,15 @@
+<div class="bg-cards bg-opacity-50 w-full h-full rounded-lg flex flex-col items-center justify-center text-white gap-4 p-5">
+    <p class="text-base">Customize your game</p>
+    <div class="w-fit h-fit flex flex-col gap-2">
+        <div class="w-full h-fit flex justify-between items-center gap-4 p-2 text-white overflow-hidden">
+            <p class="md:tracking-wider text-xs md:text-sm">ranked</p>
+            <mat-slide-toggle [(ngModel)]="ranked"></mat-slide-toggle>
+        </div>
+        <div class="w-full h-fit flex justify-between items-center gap-4 p-2 text-white overflow-hidden">
+            <p class="md:tracking-wider text-xs md:text-sm">powerups</p>
+            <mat-slide-toggle [(ngModel)]="powerups"></mat-slide-toggle>
+        </div>
+    </div>
+   
+    <button class="w-fit h-fit p-1 rounded-sm bg-cards bg-opacity-20 flex items-center justify-center hover:opacity-50 text-green-400" (click)="startGame()"> <p>play</p> </button>
+</div>

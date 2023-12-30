@@ -1,0 +1,71 @@
+version: "3.9"
+
+services:
+    database:
+        image: postgres:alpine
+        ports:
+            - "5432:5432"
+        networks:
+            - backnet
+        container_name: database
+        hostname: database
+        volumes:
+            - db_volume:/var/lib/postgresql/data
+        environment:
+            POSTGRES_PASSWORD: marvin
+            POSTGRES_USER: marvin
+            POSTGRES_DB: transcendencedb
+
+    pgadmin:
+        image: dpage/pgadmin4
+        ports:
+            - "8081:80"
+        networks:
+            - backnet
+        container_name: pgadmin
+        hostname: pgadmin
+        volumes:
+            - db_pgadmin:/var/lib/pgadmin
+        environment:
+            PGADMIN_DEFAULT_EMAIL: marvin@42.com
+            PGADMIN_DEFAULT_PASSWORD: marvin
+
+    backend:
+        depends_on:
+            - database
+        build:
+            context: srcs/backend
+        ports:
+            - "3000:3000"
+        networks:
+            - backnet
+        container_name: backend
+        hostname: backend
+        volumes:
+            - backend_volume:/ft_transcendence
+
+    frontend:
+        depends_on:
+            - backend
+        build:
+            context: srcs/frontend
+        ports:
+            - "4201:4200"
+            - "49153:49153"
+            - "80:80"
+        networks:
+            - backnet
+        container_name: frontend
+        hostname: frontend
+        volumes:
+            - frontend_volume:/ft_transcendence
+
+networks:
+    backnet:
+        driver: bridge
+
+volumes:
+    db_volume:
+    db_pgadmin:
+    backend_volume:
+    frontend_volume:

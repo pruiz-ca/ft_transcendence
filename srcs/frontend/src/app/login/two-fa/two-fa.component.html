@@ -1,0 +1,11 @@
+<div class="h-screen flex flex-col items-center justify-center text-black gap-4">
+	<h1 class="text-3xl font-mono">Enter OTP</h1>
+	<div class="otp-field">
+		<input type="text" maxlength="1" #inputs (paste)="handleOnPasteOtp($event)" (keyup)="handleOtp($event, 0)" class="card">
+		<input type="text" maxlength="1" #inputs (paste)="handleOnPasteOtp($event)" (keyup)="handleOtp($event, 1)" class="card">
+		<input class="space" type="text" maxlength="1" #inputs (paste)="handleOnPasteOtp($event)" (keyup)="handleOtp($event, 2)" class="card">
+		<input type="text" maxlength="1" #inputs (paste)="handleOnPasteOtp($event)" (keyup)="handleOtp($event, 3)" class="card">
+		<input type="text" maxlength="1" #inputs (paste)="handleOnPasteOtp($event)" (keyup)="handleOtp($event, 4)" class="card">
+		<input type="text" maxlength="1" #inputs (paste)="handleOnPasteOtp($event)" (keyup)="handleOtp($event, 5)" class="card">
+	</div>
+</div>

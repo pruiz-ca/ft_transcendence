@@ -1,0 +1,17 @@
+
+prefix -> /users
+1. ('') -> return all users in database GET
+2. ('/:id') -> return user by id GET
+
+3. ('/add') -> add user from id
+4. ('/del') -> delete user from id
+
+prefix -> users/:id/friends
+1. ('') -> get all friends from user id
+2. ('add/:friendID') -> add friend to user
+3. ('del/:friendID') -> delete friend from user
+
+prefix -> users/:id/blocks
+1. ('') -> get all blocked users from user with id
+2. ('add/:blockId') -> add blockId to user's blocked list
+3. ('del/:blockId') -> delete blockId to user's blocked list

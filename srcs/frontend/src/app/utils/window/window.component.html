@@ -1,0 +1,20 @@
+<div class="w-[60%] h-[75%] absolute left-[18%] top-[15%] min-w-[350px] min-h-[350px] z-10 focus:z-20 outline-none max-w-[1000px]" cdkDrag cdkDragBoundary=".drag-boundary" tabindex="1">
+	<div class="w-full h-full card rounded-lg relative">
+		<header class="w-full h-fit text-white p-1 flex gap-2 items-center rounded-t-lg hover:text-black absolute top-0 z-20" cdkDragHandle>
+			<button
+				class="w-3 h-3 rounded-full bg-red-500 flex items-center justify-center text-red-500 hover:text-black z-50"
+				(click)="closeWindow($event, window.id)">
+				<i class="fa-solid fa-xmark text-[9px]"></i>
+			</button>
+		</header>
+		<main class="w-full flex h-full rounded-md">
+			<div class="w-full h-full">
+				<app-me *ngIf="window.id == 'me'"></app-me>
+				<app-user *ngIf="window.id == 'users'"></app-user>
+				<app-chat *ngIf="window.id == 'chat'"></app-chat>
+				<app-admin-panel *ngIf="window.id == 'admin'"></app-admin-panel>
+				<app-game *ngIf="window.id == 'pong'"></app-game>
+			</div>
+		</main>
+	</div>
+</div>

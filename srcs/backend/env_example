@@ -1,0 +1,14 @@
+DB_NAME =
+DB_HOST =
+DB_USER =
+DB_PASSWD =
+DB_PORT =
+TWO_FA_NAME =
+JWT_SECRET = 
+
+FT_UID = 
+FT_SECRET = 
+HOME_URL = http://localhost
+API_URL = http://localhost
+ASSET_URL = http://localhost:3000/assets/
+FT_CALLBACK = http://localhost:3000/auth/42/callback

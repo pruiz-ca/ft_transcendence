@@ -1,0 +1,26 @@
+<header class="w-full h-fit bg-white bg-opacity-10 text-white px-2 flex justify-between items-center select-none"> 
+	<p class="cursor-pointer hover:opacity-40" [matMenuTriggerFor]="profile">{{currentUser.username}}</p>
+	<div class="w-fit h-full flex gap-3 items-center">
+		<i *ngIf="requests.length == 0" class="fa-regular fa-bell"></i>
+		<i *ngIf="requests.length > 0" class="fa-solid fa-bell fa-bounce text-blue-400 hover:opacity-40 brightness-110 cursor-pointer" [matMenuTriggerFor]="notif"></i>
+		<i class="fa-solid fa-search text-sm cursor-pointer hover:opacity-40" (click)="openWindow('users')"></i>
+		<p class="cursor-default">{{today}}</p>
+		<i class="fa-solid fa-arrow-right-from-bracket cursor-pointer hover:opacity-40" (click)="logout()"></i>
+	</div>
+	
+</header>
+<main #boundary class="w-full h-full p-3 drag-boundary flex flex-col gap-7 relative select-none">
+	<app-movable [icon]="'bx bxs-chat'" [name]="'chat'" [color]="'text-cyan-400'" [id]="'chat'" (event)="openWindow($event)"></app-movable>
+	<app-movable [icon]="'fa-solid fa-address-book'" [name]="'contacts'" [color]="'text-orange-400'" [id]="'users'" (event)="openWindow($event)"></app-movable>
+	<app-movable *ngIf="currentUser.hasAdminPermissions()" [icon]="'fa-solid fa-user-shield'" [id]="'admin'" [name]="'admin'" [color]="'text-purple-400'" (event)="openWindow($event)"></app-movable>
+	<app-movable class="absolute top-3 right-3" [icon]="'fa-solid fa-table-tennis-paddle-ball'" [id]="'pong'" [name]="'80s pong'" [color]="'text-transparent bg-clip-text bg-gradient-to-tr from-[#ff00ff] to-[#00ffff] clip-text'" (event)="openWindow($event)"></app-movable>
+	<app-window *ngFor="let window of openWindows" [window]="window" (close)="closeWindow($event, window.id)"></app-window>
+</main>
+
+<mat-menu #profile="matMenu" xPosition="after" class="card border-[1px] border-black relative flex flex-col select-none">
+	<app-me [user]="currentUser" (click)="$event.stopPropagation()"></app-me>
+</mat-menu>
+
+<mat-menu #notif="matMenu" xPosition="before" class="card border-[1px] border-black flex flex-col select-none">
+	<app-notifs *ngFor="let req of requests" [request]="req"></app-notifs>
+</mat-menu>

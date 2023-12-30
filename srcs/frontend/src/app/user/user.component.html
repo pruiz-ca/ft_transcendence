@@ -1,0 +1,32 @@
+<div class="w-full h-full overflow-hidden flex">
+	<mat-drawer-container class="w-full h-full rounded-lg bg-transparent" [hasBackdrop]="false">
+		<mat-drawer #drawer class="w-full sm:w-fit h-full rounded-r-lg bg-black bg-opacity-70 relative px-4 py-6"
+			[opened]="sidenavRef.open" [mode]="sidenavRef.mode">
+			<div class="w-full h-fit flex gap-2 text-white">
+				<div class="w-full h-fit flex items-center justify-center">
+					<select class="w-full h-fit bg-white bg-opacity-10 text-white outline-none rounded-sm"
+						(click)="$event.stopPropagation()" [(ngModel)]="selected">
+						<option value="users">users</option>
+						<option value="friends">friends</option>
+						<option value="blocks">blocks</option>
+					</select>
+				</div>
+				<i *ngIf="!ranked" class="fa-solid fa-arrow-down-1-9 cursor-pointer"
+					(click)="ranked = true; $event.stopPropagation()"></i>
+				<i *ngIf="ranked" class="fa-solid fa-arrow-down-a-z cursor-pointer"
+					(click)="ranked = false; $event.stopPropagation()"></i>
+			</div>
+			<div class="w-full flex flex-col flex-grow gap-2 pt-5">
+				<app-user-thumbnail *ngFor="let user of getFilter()" [user]="user" [ranked]="ranked"></app-user-thumbnail>
+			</div>
+		</mat-drawer>
+		<div *ngIf="chosenUser" class="h-full bg-transparent rounded-r-lg pt-5 w-full">
+			<app-user-card *ngIf="chosenUser" [user]="chosenUser"></app-user-card>
+		</div>
+	</mat-drawer-container>
+	<button
+		class="absolute top-1 right-1 w-3 h-3 z-30 rounded-full bg-yellow-500 flex items-center justify-center p-1 text-yellow-500 hover:text-black"
+		(click)="sidenavRef.open = !sidenavRef.open">
+		<i class="fa-solid fa-bars text-[8px] font-extrabold"></i>
+	</button>
+</div>

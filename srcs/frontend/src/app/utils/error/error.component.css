@@ -1,0 +1,39 @@
+.stroke {
+	fill: none;
+	stroke: #555;
+	stroke-width: 3px;
+	stroke-dasharray: 8% 30%;
+	stroke-dashoffset: 0;
+	animation: textanimation 6s linear infinite;
+}
+
+@keyframes textanimation {
+	100% {
+		stroke-dashoffset: -35%;
+	}
+}
+
+.stroke1 {
+	stroke: #9b83c5;
+	animation-delay: -1s;
+}
+
+.stroke2 {
+	stroke: #babebe;
+	animation-delay: -2s;
+}
+
+.stroke3 {
+	stroke: #b73a3a;
+	animation-delay: -3s;
+}
+
+.stroke4 {
+	stroke: #3ab7a0;
+	animation-delay: -4s;
+}
+
+.stroke5 {
+	stroke: #36518c;
+	animation-delay: -5s;
+}

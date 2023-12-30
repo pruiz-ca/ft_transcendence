@@ -1,0 +1,12 @@
+::ng-deep :root {
+	--tp-base-background-color: #00121212;
+	--tp-base-shadow-color: #121212;
+	--tp-container-background-color: #00121212;
+	--tp-label-foreground-color: #D0D0D0;
+	--tp-input-foreground-color: #D0D0D0;
+	--tp-container-foreground-color: #D0D0D0;
+}
+
+::ng-deep .tp-colpv_sv {
+	visibility: hidden;
+}

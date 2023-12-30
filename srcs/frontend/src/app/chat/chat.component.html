@@ -1,0 +1,46 @@
+<div class="w-full h-full ">
+	<mat-drawer-container class="w-full h-full rounded-lg bg-transparent " [hasBackdrop]="false">
+		<mat-drawer #drawer class="w-full md:w-[45%] md:max-w-[250px] h-full rounded-r-lg bg-black bg-opacity-70 relative min-w-fit" [opened]="sidenavRef.open" [mode]="sidenavRef.mode">
+			<div *ngIf="!isCreating && !isSearching"  class="w-full h-fit flex items-center justify-between absolute top-6 px-2">
+				<button class="text-white hover:text-blue-400" (click)="isCreating = true">
+					<i class="fa-regular fa-pen-to-square"></i>
+				</button>
+				<button class="text-white hover:text-blue-400" (click)="isSearching = true">
+					<i class="fa-solid fa-search text-sm cursor-pointer"></i>
+				</button>
+			</div>
+			<div *ngIf='isCreating' class="w-full h-[94%] absolute bottom-0 bg-black bg-opacity-50 rounded-t-lg  min-w-fit">
+				<app-channel-creator (close)="isCreating = false"></app-channel-creator>
+			</div>
+			<div *ngIf='isSearching' class="w-full h-[94%] absolute bottom-0 bg-black bg-opacity-50 rounded-t-lg min-w-fit">
+				<div class="w-full h-full relative pt-5">
+					<button class="w-fit h-fit absolute top-2 right-2 text-blue-400 hover:opacity-70" (click)="isSearching = false">
+						<i class="fa-solid fa-xmark"></i>
+					</button>
+					<app-search [items$]="chatService.getChannels()" [foo]="channelFilter" [template]="channelCard"></app-search>
+				</div>
+			</div>
+			<div *ngIf="!isSearching && !isCreating" class="w-full h-[90%] absolute bottom-0 text-white flex flex-col gap-2 p-2">
+				<div class="w-full h-full relative flex items-center justify-center">
+					<h6 class="text-xs md:text-sm text-center absolute -top-7 z-20">My Chats</h6>
+					<div class="w-full h-full flex flex-col flex-grow gap-2 bg-white bg-opacity-5 rounded-md overflow-auto p-2">
+						<app-channel-card *ngFor="let channel of channels" (selectChannelEvent)="selectChannel($event)" [channel]="channel"></app-channel-card>
+					</div>
+				</div>
+			</div>
+		</mat-drawer>
+		<div *ngIf="channel" class="w-full h-full">
+			<app-channel [channel]="channel"></app-channel>
+		</div>
+	</mat-drawer-container>
+	<button
+		class="absolute top-1 right-1 w-3 h-3 z-30 rounded-full bg-yellow-500 flex items-center justify-center p-1 text-yellow-500 hover:text-black"
+		(click)="sidenavRef.open = !sidenavRef.open; isCreating = false; isSearching = false">
+		<i class="fa-solid fa-bars text-[8px] font-extrabold"></i>
+	</button>
+</div>
+
+<ng-template #channelCard let-data="data">
+	<app-channel-card *ngIf="displayChannelCard(data)" [channel]="data" (selectChannelEvent)="selectChannel($event)"></app-channel-card>
+</ng-template>
+	

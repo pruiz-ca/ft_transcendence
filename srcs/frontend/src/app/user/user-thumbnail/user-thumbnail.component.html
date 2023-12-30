@@ -1,0 +1,26 @@
+<div *ngIf="user" class="w-full h-fit text-white flex min-w-fit focus:bg-orange-400 cursor-default outline-none bg-cards bg-opacity-20 rounded-sm items-center justify-center gap-2 pr-3" tabindex="1">
+	<div class="flex flex-grow gap-2 items-center relative p-1" (click)="chooseUser($event, user); $event.stopPropagation()">
+		<p *ngIf="ranked">{{user.ladder_lvl}}</p>
+		<img src="{{user.avatar}}" class="flex rounded-sm w-5 h-5 object-cover aspect-square">
+		<div class="w-fit h-fit min-w-fit flex gap-2 items-center justify-center">
+			<p class="text-xs md:text-sm">{{user.username}}</p>
+				<div *ngIf="user.user_status == 'online'"
+				class="w-2 h-2 bg-green-400 rounded-full">
+			</div>
+			<div *ngIf="user.user_status == 'offline'"
+				class="w-2 h-2 bg-red-400 rounded-full"></div>
+			<div *ngIf="user.user_status == 'playing'"
+				class="w-2 h-2 bg-orange-400 rounded-full">
+			</div>
+		</div>
+	</div>
+	<i *ngIf="displayable" class="fa-solid fa-ellipsis-vertical cursor-pointer hover:text-blue-400" (click)="$event.stopPropagation()" [matMenuTriggerFor]="userMenu" tabindex="1"></i>
+</div>
+
+<mat-menu [hidden]="!menu" #userMenu="matMenu" xPosition="before" class="card border-[1px] border-black flex flex-col select-none min-w-fit">
+	<div *ngFor="let action of actions">
+		<button mat-menu-item class="text-white -my-2" (click)="execAction(action.function)">
+			<span>{{ action.name }}</span>
+		</button>
+	</div>
+</mat-menu>

@@ -1,0 +1,30 @@
+<div class="w-full h-full rounded-t-lg relative p-2 flex flex-col gap-2 min-w-fit overflow-hidden">
+	<button class="w-fit h-fit absolute top-2 right-2 text-blue-400 hover:opacity-70" (click)="backToChats()">
+		<i class="fa-solid fa-xmark"></i>
+	</button>
+	<div class="w-full h-fit flex flex-col gap-3 text-white min-w-fit">
+		<h6 class="text-xs md:text-sm text-center">New Chat</h6>
+		<form (ngSubmit)="onSubmit()" class="flex flex-col gap-4 text-sm p-2 items-center justify-center min-w-fit">
+			<div class="w-full flex items-center justify-between min-w-fit">
+				<label>Name</label>
+				<input class="rounded-[4px] text-black pl-2 w-fit max-w-[100px]" type="text" name="name"
+					placeholder="" [(ngModel)]="name" />
+			</div>
+			<div class="w-full flex items-center justify-between min-w-fit gap-2">
+				<label class="hidden md:flex">Password</label>
+				<label class="md:hidden">Pswd</label>
+				<input class="rounded-[4px] text-black pl-2 w-fit max-w-[100px]" type="text" name="passwd"
+					placeholder="" [(ngModel)]="passwd" />
+			</div>
+			<input type="submit" (value)="buttonText" class="bg-white bg-opacity-10 w-fit px-2 py-1 h-fit rounded-[4px] cursor-pointer hover:text-steelBlue" />
+		</form>
+	</div>
+	<hr>
+	<div class="w-full flex flex-grow overflow-auto justify-center">
+		<app-search [items$]="users" [foo]="userFilter" [template]="userCard" (close)="closeSidenav()"></app-search>
+	</div>
+</div>
+
+<ng-template #userCard let-data="data">
+	<app-user-thumbnail [user]="data"></app-user-thumbnail>
+</ng-template>
